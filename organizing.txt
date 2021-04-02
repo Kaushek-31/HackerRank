@@ -1,0 +1,66 @@
+#!/bin/python3
+
+import math
+import os
+import random
+import re
+import sys
+
+
+
+#
+# Complete the 'minFolders' function below.
+#
+# The function is expected to return an INTEGER.
+# The function accepts following parameters:
+#  1. INTEGER cssFiles
+#  2. INTEGER jsFiles
+#  3. INTEGER readMeFiles
+#  4. INTEGER capacity
+#
+
+def minFolders(cssFiles, jsFiles, readMeFiles, capacity):
+    # Write your code here
+    folders = 0
+    if jsFiles > cssFiles:
+        flag = 1
+    else:
+        flag = -1
+    while readMeFiles != 0:
+        readMeFiles -= 1
+        c = 0
+        while c != capacity-1:
+            if flag == 1:
+                jsFiles -= 1*(1-(c%2))
+                cssFiles -= 1*(c%2)
+            else:
+                cssFiles -= 1*(1-(c%2))
+                jsFiles -= 1*(c%2)
+            c += 1
+        folders += 1
+    
+    if jsFiles > cssFiles:
+        flag = 1
+    else:
+        flag = -1
+
+    while(cssFiles > 0 and jsFiles > 0):
+        c = 0
+        while c != capacity:
+            if flag == 1:
+                jsFiles -= 1*(1-(c%2))
+                cssFiles -= 1*(c%2)
+            else:
+                cssFiles -= 1*(1-(c%2))
+                jsFiles -= 1*(c%2)
+            c += 1
+        folders += 1
+    
+    if jsFiles > 0:
+        folders += jsFiles
+    elif cssFiles > 0:
+        folders += cssFiles
+
+    return folders
+
+if __name__ == '__main__':
